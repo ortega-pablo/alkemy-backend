@@ -9,13 +9,14 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     age: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     weight: {
-      type: DataTypes.STRING,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     history: {

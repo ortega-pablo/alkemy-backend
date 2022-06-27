@@ -10,7 +10,7 @@ router.post("/login", async (req, res, next) => {
   try {
     const {email, password} = req.body
 
-    user = await User.findOne({
+    const user = await User.findOne({
         where: {
             email: email
         }
@@ -43,6 +43,9 @@ router.post("/login", async (req, res, next) => {
 router.post("/register", async (req, res, next) => {
     try {
         const {userName, firstName, lastName, email, password} = req.body
+        if(password.length < 7){
+            return res.status(500).send("La contraseña debe contener mínimo 7 caracteres")
+        }
         const hashPassword = bcrypt.hashSync(password, Number.parseInt(authConfig.rounds));
         
         const findUser = await User.findOne({

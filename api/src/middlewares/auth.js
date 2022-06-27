@@ -4,10 +4,11 @@ const authConfig = require ("../config/auth")
 
 const verifyToken = async (req, res, next) => {
   try {
+
     const headerToken = req.header("Authorization");
 
     if (!headerToken) {
-      return res.status(401).json({ error: "Acceso no autorizado." });
+      return res.status(401).send("Acceso no autorizado.");
     }
     const token = headerToken.replace("Bearer ", "");
     
@@ -16,6 +17,7 @@ const verifyToken = async (req, res, next) => {
         if(error){
             return res.status(500).send("Error decodificando token")
         }else{
+            req.user = decoded
             next()
         }
     })
